@@ -1,2 +1,1 @@
-# Meandering-in-the-Universe
-My attempt at understanding the universe
+Ongoing record of my learning
