@@ -1,0 +1,85 @@
+\documentclass[11pt]{article}
+
+% --- Essential Packages ---
+\usepackage{amsmath, amssymb, amsthm, comment, xcolor, bbm, mathrsfs, mathtools, enumitem, slashed} % Core AMS math packages
+\usepackage[makeroom]{cancel}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{shapes.geometric, positioning, fit}
+\usepackage{hyperref} % Makes the table of contents and citations clickable
+\usepackage[margin=1in]{geometry} % Standardizes margins
+\usepackage{mathtools,stmaryrd} % For advanced math formatting
+%\usepackage{tocloft}
+\usepackage{booktabs}   % for \toprule, \midrule, \bottomrule
+\usepackage{array}      % extra column formatting options
+\usepackage{caption}    % better caption control
+
+%\setcounter{tocdepth}{3}
+%\setlength{\cftsubsubsecindent}{2em} ∂  % indent for subsections
+%\setlength{\cftsubsecindent}{2em}   % indent for subsections
+%\setlength{\cftsecindent}{1em}      % indent for sections
+
+\newcommand{\tuple}[1]{\left( #1 \right)}
+\newcommand{\paren}[1]{\left( #1 \right)}
+\newcommand{\op}[1]{\operatorname{#1}}
+
+% --- Theorem Environments ---
+% This sets up how theorems, lemmas, etc., are numbered (by section)
+\theoremstyle{definition} % This ensures all following environments have Bold headers and Upright body text
+
+% 1. Define the "Master" counter. We'll use 'theorem' as the base.
+% [section] means it will number as 1.1, 1.2, 2.1, etc.
+\newtheorem{theorem}{Theorem}[section]
+
+% 2. Define all other environments to share the 'theorem' counter.
+% The [theorem] in the middle is the "link" that forces them to share numbering.
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{recall}{Recall}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{disclaimer}[theorem]{Disclaimer}
+\newtheorem{aside}[theorem]{Aside}
+\newtheorem{claim}[theorem]{Claim}
+
+% --- Custom Macros ---
+% Add your custom shortcuts here
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CC}{\mathcal{C}}
+\newcommand{\BB}{\mathcal{B}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\A}{\mathscr{A}}
+\newcommand{\B}{\mathscr{B}}
+\newcommand{\h}{\mathcal{H}}
+\newcommand{\ham}{\mathsf{H}}
+\newcommand{\myfunction}[2]{%
+    \makebox[0pt][r]{$\displaystyle #1$}
+    =
+    \makebox[0pt][l]{$\displaystyle #2$}%
+}
+
+%https://tex.stackexchange.com/questions/218372/cancel-maths-expression-with-a-down-arrow
+% #1, #2 offset of label   #6 extra width to clear arrowhead
+% #3, #4 vector direction  #7 superscript label style
+% #5 vector width          #8 superscript label
+\def\cantox@vector#1#2#3#4#5#6#7#8{%
+  \dimen@.5\p@
+  \setbox\z@\vbox{\boxmaxdepth.5\p@
+   \hbox{\kern-1.2\p@\kern#1\dimen@$#7{#8}\m@th$}}%
+  \ifx\canto@fil\hidewidth  \wd\z@\z@ \else \kern-#6\unitlength \fi
+  \ooalign{%
+    \canto@fil$\m@th \CancelColor
+    \vcenter{\hbox{\dimen@#6\unitlength \kern\dimen@
+      \multiply\dimen@#4\divide\dimen@#3 \vrule\@depth\dimen@\@width\z@
+      \vector(#3,-#4){#5}%
+    }}_{\raise-#2\dimen@\copy\z@\kern-\scriptspace}$%
+    \canto@fil \cr
+    \hfil \box\@tempboxa \kern\wd\z@ \hfil \cr}}
+\def\bcancelto#1#2{\let\canto@vector\cantox@vector\cancelto{#1}{#2}}
